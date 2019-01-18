@@ -10,6 +10,7 @@ import {
   Button
 } from 'react-native';
 import { WebBrowser, Constants } from 'expo';
+import { API_KEY, ANOTHER_CONFIG } from 'react-native-dotenv'
 
 import { MonoText } from '../components/StyledText';
 import  Greeting  from '../components/Learning/Greeting';
@@ -55,7 +56,7 @@ export default class HomeScreen extends React.Component {
               title="Go to notifications"
             />
             <Text style={styles.getStartedText}>
-              Change this text and your app will automatically reload.
+              Change this text and your app will automatically reload. 
             </Text>
           </View>
 
