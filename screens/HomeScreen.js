@@ -10,11 +10,10 @@ import {
   Button
 } from 'react-native';
 import { WebBrowser, Constants } from 'expo';
-import { API_KEY, ANOTHER_CONFIG } from 'react-native-dotenv'
 
 import { MonoText } from '../components/StyledText';
 import  Greeting  from '../components/Learning/Greeting';
-import { createDrawerNavigator, createAppContainer } from 'react-navigation';
+import  ApiService from '../services/ApiService';
 //import styles from '../assets/styles';
 
 export default class HomeScreen extends React.Component {
@@ -26,6 +25,7 @@ export default class HomeScreen extends React.Component {
   }
   componentDidMount () {
     this.madeUpVariable = "Made Up Value"
+    let venues = await ApiService.getVenues();
   }
   render() {
     return (
@@ -62,7 +62,7 @@ export default class HomeScreen extends React.Component {
 
           <View style={styles.helpContainer}>
             <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
+              <Text style={styles.helpLinkText}>Help, it didn’t automatically reload! {ApiService.getPlatform()}</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
