@@ -6,6 +6,7 @@ import VideoScreen from '../screens/VideoScreen';
 import CameraScreen from '../screens/CameraScreen';
 import TestScreen from '../screens/TestScreen';
 import KeyboardScreen from '../screens/KeyboardScreen';
+import HamburgerMenuScreen from '../screens/HamburgerMenuScreen';
 //import styles from '../assets/styles';
 
 export default createAppContainer(createDrawerNavigator({
@@ -28,5 +29,8 @@ export default createAppContainer(createDrawerNavigator({
   },
   KeyboardScreen: {
       screen: KeyboardScreen
+  },
+  HamburgerMenuScreen: {
+      screen: HamburgerMenuScreen
   },
 }));

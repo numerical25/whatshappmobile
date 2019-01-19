@@ -9,6 +9,7 @@ import { MapView, Constants, Location, Permissions } from 'expo';
 import { Marker } from 'react-native-maps';
 import styles from '../assets/styles';
 import  ApiService from '../services/ApiService';
+import  HamburgerMenuScreen  from './HamburgerMenuScreen';
 
 export default class MapScreen extends Component {
   static navigationOptions = {
@@ -61,13 +62,8 @@ export default class MapScreen extends Component {
   render() {
     if(this.state.venues.length && this.state.location) {
       return (
+        <HamburgerMenuScreen navigation={this.props.navigation}>
         <View style={{flex:1}}>
-          <TouchableOpacity
-            style={styles.menuButton}
-            onPress={() => this.props.navigation.toggleDrawer()}
-            >
-           <Text>Menu</Text>
-          </TouchableOpacity>
           <MapView
             style={{ flex: 1 }}
             initialRegion={{
@@ -89,6 +85,7 @@ export default class MapScreen extends Component {
               ))}
           </MapView>
         </View>
+        </HamburgerMenuScreen>
       );
     } else {
       return (
