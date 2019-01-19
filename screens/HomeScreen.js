@@ -25,7 +25,6 @@ export default class HomeScreen extends React.Component {
   }
   componentDidMount () {
     this.madeUpVariable = "Made Up Value"
-    let venues = await ApiService.getVenues();
   }
   render() {
     return (
@@ -62,7 +61,7 @@ export default class HomeScreen extends React.Component {
 
           <View style={styles.helpContainer}>
             <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>Help, it didn’t automatically reload! {ApiService.getPlatform()}</Text>
+              <Text style={styles.helpLinkText}>Help, it didn’t automatically reload! {ApiService.getEndPoint()}</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
