@@ -6,7 +6,7 @@ import NavigationTestUtils from 'react-navigation/NavigationTestUtils';
 
 describe('App snapshot', () => {
   jest.useFakeTimers();
-  beforeEach(() => {
+  beforeEach(() => { 
     NavigationTestUtils.resetInternalState();
   });
 
