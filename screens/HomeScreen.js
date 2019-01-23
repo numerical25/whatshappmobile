@@ -13,7 +13,7 @@ import { WebBrowser, Constants } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 import  Greeting  from '../components/Learning/Greeting';
-import  HamburgerMenuScreen  from './HamburgerMenuScreen';
+import  HamburgerMenuScreen  from './Menus/HamburgerMenuScreen';
 import  ApiService from '../services/ApiService';
 //import styles from '../assets/styles';
 
@@ -24,6 +24,7 @@ export default class HomeScreen extends React.Component {
   constructor (props) {
     super(props)
   }
+  
   componentDidMount () {
     this.madeUpVariable = "Made Up Value"
   }
@@ -55,6 +56,10 @@ export default class HomeScreen extends React.Component {
               <Button
                 onPress={() => this.props.navigation.toggleDrawer()}
                 title="Go to notifications"
+              />
+              <Button
+                onPress={() => this.props.navigation.navigate('Map')}
+                title="Go to Maps"
               />
               <Text style={styles.getStartedText}>
                 Change this text and your app will automatically reload. 

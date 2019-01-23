@@ -1,8 +1,8 @@
 import { IOS_END_POINT, ANDROID_END_POINT } from 'react-native-dotenv'
 import {Platform} from 'react-native';
 
-var ApiService = {  
-  fakeMarkers: [
+var ApiService = { 
+  fakeMarkers: [ 
     {
       id:1,
       title: "Home",
@@ -40,13 +40,13 @@ var ApiService = {
     return this.fakeMarkers
   },
 
-  getVenues: function(callBack) {
+  getVenues: function(callBack) { 
     if(!callBack) {
       console.error("No Callback Provided");
-      return 
+      return
     }
     console.log("Fetching "+this.getEndPoint()+'query?resource=venue')
-    return fetch(this.getEndPoint()+'query?resource=venue')
+    return fetch(this.getEndPoint()+'query?resource=venue') 
     .then((response) => response.json())
     .then((responseJson) => {
       callBack(responseJson)

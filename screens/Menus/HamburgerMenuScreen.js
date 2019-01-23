@@ -43,7 +43,7 @@ export default class HamburgerMenuScreen extends React.Component {
           <TouchableOpacity onPress={() => this.props.navigation.toggleDrawer()}>
           <Image 
             style={{width: 50, height: 50}}
-            source={require('../assets/images/hamburger_1.png')} />
+            source={require('../../assets/images/hamburger_1.png')} />
           </TouchableOpacity>
         </View>
         {this.props.children}

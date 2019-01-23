@@ -1,6 +1,7 @@
 import React, { Component, } from 'react'
 import { View, Text, TextInput } from 'react-native'
-
+import  HamburgerMenuScreen  from './Menus/HamburgerMenuScreen';
+import { createStackNavigator, createAppContainer } from "react-navigation";
 export default class KeyboardScreen extends Component {
   static navigationOptions = {
     drawerLabel: 'Keyboard Screen',
@@ -17,10 +18,15 @@ export default class KeyboardScreen extends Component {
   
   render() {
     return (
-      <View>
-        <Text>Welcome To Keyboard Screen</Text>
-        <TextInput />
-      </View>
+      <HamburgerMenuScreen navigation={this.props.navigation}>
+        <View>
+          <Text>Welcome To Keyboard Screen</Text>
+          <TextInput style={{
+              borderColor:'red',
+              borderWidth:1
+            }} />
+        </View>
+      </HamburgerMenuScreen>
     )
   }
 }

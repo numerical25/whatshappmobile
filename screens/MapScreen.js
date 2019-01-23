@@ -3,17 +3,22 @@ import {
   View ,
   TouchableOpacity,
   Text,
-  Platform
+  Platform,
+  Button
 } from 'react-native';
 import { MapView, Constants, Location, Permissions } from 'expo';
 import { Marker } from 'react-native-maps';
 import styles from '../assets/styles';
-import  ApiService from '../services/ApiService';
-import  HamburgerMenuScreen  from './HamburgerMenuScreen';
+import { createStackNavigator } from "react-navigation";
 
-export default class MapScreen extends Component {
+import  ApiService from '../services/ApiService';
+import  HamburgerMenuScreen  from './Menus/HamburgerMenuScreen';
+import  EventScreen  from './EventScreen';
+
+class MapScreen extends Component {
   static navigationOptions = {
     drawerLabel: 'Maps',
+    header: null,
   };
 
   state = {
@@ -22,13 +27,13 @@ export default class MapScreen extends Component {
     markers: [],
     venues:[]
   };
-
+  
   constructor(props) {
     super(props)
   }
 
   handleVenues = (data) => {
-    this.setState({venues:data});
+    this.setState({venues:data.data});
   }
 
   componentWillMount() {
@@ -76,12 +81,21 @@ export default class MapScreen extends Component {
                 <Marker 
                   key={marker.id}
                   coordinate={{
-                    latitude:parseFloat(marker.latitude),
-                    longitude:parseFloat(marker.longitude)
+                    latitude:parseFloat(marker.attributes.latitude),
+                    longitude:parseFloat(marker.attributes.longitude)
                   }}
-                  title={marker.name}
-                  description={marker.address}
-                />
+                  title={marker.attributes.name}
+                  description={marker.attributes.address}
+                  onCalloutPress={() => this.props.navigation.navigate('Event')}
+                >
+                  <View>
+                    <MapView.Callout>
+                        <View>
+                            <Text>{marker.attributes.address}</Text>
+                        </View>
+                    </MapView.Callout>
+                  </View>
+                </Marker>
               ))}
           </MapView>
         </View>
@@ -94,3 +108,12 @@ export default class MapScreen extends Component {
     }
   }
 }
+
+export default createStackNavigator({
+  Map: {
+    screen: MapScreen
+  },
+  Event: {
+    screen: EventScreen
+  }
+});
