@@ -3,6 +3,7 @@ import React from 'react';
 import App from '../App';
 import renderer from 'react-test-renderer';
 import NavigationTestUtils from 'react-navigation/NavigationTestUtils';
+import ApiService from '../services/ApiService';
 
 describe('App snapshot', () => {
   jest.useFakeTimers();

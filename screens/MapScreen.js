@@ -25,7 +25,8 @@ class MapScreen extends Component {
     location: null,
     errorMessage: null,
     markers: [],
-    venues:[]
+    venues:[],
+    events:[]
   };
   
   constructor(props) {
@@ -36,10 +37,14 @@ class MapScreen extends Component {
     this.setState({venues:data.data});
   }
 
+  handleTrendingEvents = (data) => {
+    this.setState({events:data.data});
+  }
+
   componentWillMount() {
     this._getLocationAsync();
     this.setState({markers:ApiService.getFakeMarkers()});
-    ApiService.getVenues(this.handleVenues)
+    //ApiService.getVenues(this.handleVenues);
   }
 
   // componentWillMount() {
@@ -62,10 +67,11 @@ class MapScreen extends Component {
 
     let location = await Location.getCurrentPositionAsync({ enableHighAccuracy: true });
     this.setState({ location });
+    ApiService.getTrendingEvents(location.coords,this.handleTrendingEvents);
   };
   
   render() {
-    if(this.state.venues.length && this.state.location) {
+    if(this.state.events.length && this.state.location) {
       return (
         <HamburgerMenuScreen navigation={this.props.navigation}>
         <View style={{flex:1}}>
@@ -77,7 +83,7 @@ class MapScreen extends Component {
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }}>
-              {this.state.venues.map(marker => (
+              {this.state.events.map(marker => (
                 <Marker 
                   key={marker.id}
                   coordinate={{
@@ -86,15 +92,14 @@ class MapScreen extends Component {
                   }}
                   title={marker.attributes.name}
                   description={marker.attributes.address}
-                  onCalloutPress={() => this.props.navigation.navigate('Event')}
-                >
-                  <View>
-                    <MapView.Callout>
-                        <View>
-                            <Text>{marker.attributes.address}</Text>
-                        </View>
-                    </MapView.Callout>
-                  </View>
+                  onCalloutPress={() => this.props.navigation.navigate('Event',{
+                    venue:marker
+                  })}>
+                  <MapView.Callout>
+                      <View>
+                        <Text>{marker.attributes.name}</Text>
+                      </View>
+                  </MapView.Callout>
                 </Marker>
               ))}
           </MapView>

@@ -1,5 +1,6 @@
 import { IOS_END_POINT, ANDROID_END_POINT } from 'react-native-dotenv'
 import {Platform} from 'react-native';
+import axios from 'axios';
 
 var ApiService = { 
   fakeMarkers: [ 
@@ -45,17 +46,22 @@ var ApiService = {
       console.error("No Callback Provided");
       return
     }
-    console.log("Fetching "+this.getEndPoint()+'query?resource=venue')
-    return fetch(this.getEndPoint()+'query?resource=venue') 
-    .then((response) => response.json())
-    .then((responseJson) => {
-      callBack(responseJson)
+    var query = this.getEndPoint()+'query?resource=venue';
+    console.log("Fetching "+query)
+    axios.get(query)
+    .then(response => {
+      callBack(response.data);
     })
-    .catch((error) => {
-      console.error(error);
-    });
-  }
+  },
 
+  getTrendingEvents: function(coords, callBack) {
+    var query = this.getEndPoint()+'query?resource=venue&action=get-trending-events';
+    query += "&latitude="+coords.latitude+"&longitude="+coords.longitude
+    axios.get(query)
+    .then(response => {
+      callBack(response.data);
+    })
+  }
 };
 
 export { ApiService as default };
