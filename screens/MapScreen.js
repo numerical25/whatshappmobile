@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 import {
   View ,
-  TouchableOpacity,
   Text,
-  Platform,
-  Button
 } from 'react-native';
-import { MapView, Constants, Location, Permissions } from 'expo';
+import { MapView, Location, Permissions } from 'expo';
 import { Marker } from 'react-native-maps';
 import styles from '../assets/styles';
 import { createStackNavigator } from "react-navigation";
 
 import  ApiService from '../services/ApiService';
 import  HamburgerMenuScreen  from './Menus/HamburgerMenuScreen';
-import  EventScreen  from './EventScreen';
+import  EventScreen  from './event/EventScreen';
+import  EventFeedScreen  from './event/EventFeedScreen';
 
 class MapScreen extends Component {
   static navigationOptions = {
@@ -26,7 +24,8 @@ class MapScreen extends Component {
     errorMessage: null,
     markers: [],
     venues:[],
-    events:[]
+    events:[],
+    mapMessage: "Loading..."
   };
   
   constructor(props) {
@@ -39,6 +38,7 @@ class MapScreen extends Component {
 
   handleTrendingEvents = (data) => {
     this.setState({events:data.data});
+    this.setState({mapMessage:"Map Data Retrieved."})
   }
 
   componentWillMount() {
@@ -57,7 +57,7 @@ class MapScreen extends Component {
   //   }
   // }
 
-  _getLocationAsync = async () => {
+  _getLocationAsync = async () => { 
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
       this.setState({
@@ -108,7 +108,7 @@ class MapScreen extends Component {
       );
     } else {
       return (
-        <Text>Loading...</Text>
+        <Text>{this.state.mapMessage}</Text>
       );
     }
   }
@@ -120,5 +120,8 @@ export default createStackNavigator({
   },
   Event: {
     screen: EventScreen
+  },
+  EventFeed: {
+    screen: EventFeedScreen
   }
 });

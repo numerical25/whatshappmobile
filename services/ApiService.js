@@ -53,13 +53,39 @@ var ApiService = {
       callBack(response.data);
     })
   },
-
-  getTrendingEvents: function(coords, callBack) {
+  getTrendingEvents: function(coords, callBack) { 
     var query = this.getEndPoint()+'query?resource=venue&action=get-trending-events';
     query += "&latitude="+coords.latitude+"&longitude="+coords.longitude
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
     axios.get(query)
     .then(response => {
       callBack(response.data);
+    })
+    .catch(reason => {
+      console.log(reason)
+      var r = reason; 
+    }) 
+  },
+  saveSnap:function(data) {
+    const type = 'video/${data.codec}';
+    const form = new FormData();
+    form.append("attachment_file", {
+        name: "mobile-video-upload",
+        type,
+        uri
+    });
+    form.append("attachment_file", {
+      name: "mobile-video-upload",
+      type,
+      uri
+    });
+    form.append('user_id',1);
+    form.append('event_id',1);
+    form.append('message','Recorded Data');
+    var query = this.getEndPoint()+'query?resource=comment';
+    query += "&XDEBUG_SESSION_START=1";
+    axios.post(query,form).then( response => {
+      var r = response;
     })
   }
 };

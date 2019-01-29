@@ -1,5 +1,5 @@
 import React, { Component, } from 'react'
-import { View, Text, TextInput } from 'react-native'
+import { View, Text, TextInput, Button } from 'react-native'
 export default class HelloWorld extends Component {
   static navigationOptions = {
     drawerLabel: 'Keyboard Screen',
@@ -31,6 +31,9 @@ export default class HelloWorld extends Component {
             <View key={event.data.id}>
               <Text>{event.data.attributes.name}</Text>
               <Text>{event.data.attributes.description}</Text>
+              <Button title="View Event Feed" onPress={() => this.props.navigation.navigate('EventFeed',{
+                    event_id:event.data.id
+                  })}></Button>
             </View>
           ))}
         </View>

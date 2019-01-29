@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, CameraRoll } from 'react-native';
 import { Camera, Permissions } from 'expo';
+import ApiService from '../services/ApiService';
 
 export default class CameraScreen extends React.Component {
   
@@ -44,8 +45,9 @@ export default class CameraScreen extends React.Component {
         if(this.recording == false) {
           this.recording = true
           this.setState({'recordText':'Recording...'})
-          let recordData = await this.camera.recordAsync();  
-          CameraRoll.saveToCameraRoll(recordData.uri, 'video');
+          const { uri, codectype = "mp4" } = await this.camera.recordAsync();
+          var data = {user_id:1,event_id:1, message:'Recorded Data',attachment_file:uri, codec:codectype};
+          ApiService.saveSnap(data); 
           this.setState({'recordText':'Record'})
         } else {
           this.recording = false
